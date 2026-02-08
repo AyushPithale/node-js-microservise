@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 const rateLimiter = new RateLimiterRedis({
   storeClient: redisClient,
   keyPrefix: "middleware",
-  points: 10, // max number of request user can send from perticular ip
+  points: 100, // max number of request user can send from perticular ip
   duration: 1, // in 60 seconds
 });
 
