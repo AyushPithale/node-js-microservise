@@ -10,7 +10,7 @@ const { RedisStore } = require("rate-limit-redis");
 const proxy = require("express-http-proxy");
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+const test = "test";
 const redisClient = new Redis(process.env.REDIS_URL);
 
 app.use(helmet());
