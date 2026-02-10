@@ -921,3 +921,23 @@
 {"level":"info","message":"Identity service running on port 3001","service":"identity-service","timestamp":"2026-02-08T18:26:17.413Z"}
 {"level":"info","message":"MongoDB connected","service":"identity-service","timestamp":"2026-02-08T18:26:18.153Z"}
 {"level":"info","message":"MongoDB connected","service":"identity-service","timestamp":"2026-02-08T18:26:18.236Z"}
+{"level":"info","message":"Identity service running on port 3001","service":"identity-service","timestamp":"2026-02-10T19:09:45.381Z"}
+{"level":"info","message":"MongoDB connected","service":"identity-service","timestamp":"2026-02-10T19:09:46.099Z"}
+{"level":"info","message":"Received POST /v1/auth/register","service":"identity-service","timestamp":"2026-02-10T19:09:48.925Z"}
+{"level":"info","message":"Request body {\"username\":\"ayyush\",\"password\":\"123123123\",\"email\":\"Ba@g.com\"}","service":"identity-service","timestamp":"2026-02-10T19:09:48.926Z"}
+{"level":"info","message":"Received POST /v1/auth/register","service":"identity-service","timestamp":"2026-02-10T19:09:55.493Z"}
+{"level":"info","message":"Request body {\"username\":\"ayyush\",\"password\":\"123123123\",\"email\":\"Ba@g.com\"}","service":"identity-service","timestamp":"2026-02-10T19:09:55.494Z"}
+{"level":"info","message":"Received POST /api/auth/register","service":"identity-service","timestamp":"2026-02-10T19:10:09.766Z"}
+{"level":"info","message":"Request body {\"username\":\"ayyush\",\"password\":\"123123123\",\"email\":\"Ba@g.com\"}","service":"identity-service","timestamp":"2026-02-10T19:10:09.771Z"}
+{"level":"info","message":"Registration endpoint hit","service":"identity-service","timestamp":"2026-02-10T19:10:09.804Z"}
+{"0":"B","1":"a","2":"@","3":"g","4":".","5":"c","6":"o","7":"m","level":"warn","message":"User already exists","service":"identity-service","timestamp":"2026-02-10T19:10:09.932Z"}
+{"level":"error","message":"APIError: User already exists\n    at F:\\node-js-microservise\\identity-service\\src\\controllers\\identity-controller.js:22:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)","service":"identity-service","timestamp":"2026-02-10T19:10:09.940Z"}
+{"level":"info","message":"Received POST /api/auth/register","service":"identity-service","timestamp":"2026-02-10T19:11:40.956Z"}
+{"level":"info","message":"Request body {\"username\":\"pandu\",\"password\":\"123123123\",\"email\":\"Ba@g.com\"}","service":"identity-service","timestamp":"2026-02-10T19:11:40.956Z"}
+{"level":"info","message":"Registration endpoint hit","service":"identity-service","timestamp":"2026-02-10T19:11:40.960Z"}
+{"0":"B","1":"a","2":"@","3":"g","4":".","5":"c","6":"o","7":"m","level":"warn","message":"User already exists","service":"identity-service","timestamp":"2026-02-10T19:11:41.000Z"}
+{"level":"error","message":"APIError: User already exists\n    at F:\\node-js-microservise\\identity-service\\src\\controllers\\identity-controller.js:22:11\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)","service":"identity-service","timestamp":"2026-02-10T19:11:41.001Z"}
+{"level":"info","message":"Received POST /api/auth/register","service":"identity-service","timestamp":"2026-02-10T19:11:48.095Z"}
+{"level":"info","message":"Request body {\"username\":\"pandu\",\"password\":\"123123123\",\"email\":\"pandu@g.com\"}","service":"identity-service","timestamp":"2026-02-10T19:11:48.096Z"}
+{"level":"info","message":"Registration endpoint hit","service":"identity-service","timestamp":"2026-02-10T19:11:48.100Z"}
+{"buffer":{"data":[105,139,130,244,87,252,12,4,120,151,59,110],"type":"Buffer"},"level":"info","message":"User registered successfully","service":"identity-service","timestamp":"2026-02-10T19:11:48.361Z"}
