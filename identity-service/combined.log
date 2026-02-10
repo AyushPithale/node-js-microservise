@@ -941,3 +941,5 @@
 {"level":"info","message":"Request body {\"username\":\"pandu\",\"password\":\"123123123\",\"email\":\"pandu@g.com\"}","service":"identity-service","timestamp":"2026-02-10T19:11:48.096Z"}
 {"level":"info","message":"Registration endpoint hit","service":"identity-service","timestamp":"2026-02-10T19:11:48.100Z"}
 {"buffer":{"data":[105,139,130,244,87,252,12,4,120,151,59,110],"type":"Buffer"},"level":"info","message":"User registered successfully","service":"identity-service","timestamp":"2026-02-10T19:11:48.361Z"}
+{"level":"info","message":"Identity service running on port 3001","service":"identity-service","timestamp":"2026-02-10T19:15:08.436Z"}
+{"level":"info","message":"MongoDB connected","service":"identity-service","timestamp":"2026-02-10T19:15:09.069Z"}
