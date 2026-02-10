@@ -52,9 +52,32 @@ const proxyOptions = {
   },
   proxyErrorHandler: (err, res, next) => {
     logger.error("Proxy error", err);
-    res.status(500).json({ message: "Internal server error" });
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: err.message });
   },
 };
+
+// setting up proxy for idenity service
+// api gateway -> /v1/auth/register -> 3000
+// idenity -> /api/auth/register -> 3001
+
+app.use(
+  "/v1/auth",
+  proxy(process.env.IDENTITY_SERVICE_URL, {
+    ...proxyOptions,
+    proxyReqOptDecorator: (proxyReqOpts, srcRequest) => {
+      proxyReqOpts.headers["content-Type"] = "application/json";
+      return proxyReqOpts;
+    },
+    userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
+      logger.info(
+        `Responce reviced from Idenity-service: ${proxyRes.statusCode}`,
+      );
+      return proxyResData;
+    },
+  }),
+);
 
 app.use(rateLimiter);
 
@@ -62,4 +85,8 @@ app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
   logger.info(`API Gateway running on port ${process.env.PORT}`);
+  logger.info(
+    `Identity service running on port ${process.env.IDENTITY_SERVICE_URL}`,
+  );
+  logger.info(`Redis URl ${process.env.REDIS_URL}`);
 });
