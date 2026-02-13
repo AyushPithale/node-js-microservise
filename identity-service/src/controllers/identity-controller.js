@@ -1,6 +1,9 @@
 const logger = require("../utils/logger");
 const { asyncHandler, APIError } = require("../middleware/error-handler");
-const { validateUserRegistration } = require("../utils/validation");
+const {
+  validateUserRegistration,
+  validateLogin,
+} = require("../utils/validation");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
 // user-registration
@@ -41,12 +44,43 @@ const registerUser = asyncHandler(async (req, res) => {
     refreshToken,
   });
 });
-// user login
 
+// user login
+const loginUser = asyncHandler(async (req, res) => {
+  logger.info("Login endpoint hit");
+
+  const { error, value } = validateLogin(req.body);
+
+  if (error) {
+    logger.warn("Validation error", error.details[0].message);
+    throw new APIError(error.details[0].message, 400);
+  }
+
+  const { email, password } = value;
+  const user = await User.findOne({ email });
+  console.log("user", user);
+
+  if (!user) {
+    logger.warn("User not found", email);
+    throw new APIError("User not found", 404);
+  }
+
+  const isPasswordIsValid = await user.comparePassword(password);
+
+  if (!isPasswordIsValid) {
+    logger.warn("Invalid password", email);
+    throw new APIError("Invalid password", 400);
+  }
+
+  const { accessToken, refreshToken } = await generateToken(user);
+  console.log("accessToken ", accessToken);
+  res.status(201).json({ success: true, accessToken, refreshToken });
+});
 // refresh token
 
 // logout
 
 module.exports = {
   registerUser,
+  loginUser,
 };
