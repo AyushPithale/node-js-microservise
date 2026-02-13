@@ -72,7 +72,7 @@ app.use(
     },
     userResDecorator: (proxyRes, proxyResData, userReq, userRes) => {
       logger.info(
-        `Responce reviced from Idenity-service: ${proxyRes.statusCode}`,
+        `Response received from Idenity-service: ${proxyRes.statusCode}`,
       );
       return proxyResData;
     },
