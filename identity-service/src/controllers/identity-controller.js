@@ -6,6 +6,7 @@ const {
 } = require("../utils/validation");
 const User = require("../models/User");
 const generateToken = require("../utils/generateToken");
+const RefreshToken = require("../models/refreshToken");
 // user-registration
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -76,8 +77,24 @@ const loginUser = asyncHandler(async (req, res) => {
   console.log("accessToken ", accessToken);
   res.status(201).json({ success: true, accessToken, refreshToken });
 });
-// refresh token
 
+// refresh token
+const refreshToken = asynceHandler(async (req, res) => {
+  logger.info("refreshToken endpoint hit");
+
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    logger.warn("Refresh token missing");
+    throw new APIError("Refresh token missing", 400);
+  }
+
+  const storedToken = await RefreshToken.findOne({ token: refreshToken });
+  
+  if (!storedToken || storedToken.expireAt < new Date()) {
+    logger.warn("Invalid refresh Token");
+    throw new APIError("Invalid refresh Token");
+  }
+});
 // logout
 
 module.exports = {
