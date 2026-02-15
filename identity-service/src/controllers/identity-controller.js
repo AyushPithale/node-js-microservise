@@ -79,25 +79,63 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 // refresh token
-const refreshToken = asynceHandler(async (req, res) => {
+const refreshToken = asyncHandler(async (req, res) => {
   logger.info("refreshToken endpoint hit");
 
-  const { refreshToken } = req.body;
-  if (!refreshToken) {
+  const { refreshToken: refreshTokenBody } = req.body;
+  if (!refreshTokenBody) {
     logger.warn("Refresh token missing");
     throw new APIError("Refresh token missing", 400);
   }
 
-  const storedToken = await RefreshToken.findOne({ token: refreshToken });
-  
+  const storedToken = await RefreshToken.findOne({ token: refreshTokenBody });
+
   if (!storedToken || storedToken.expireAt < new Date()) {
     logger.warn("Invalid refresh Token");
     throw new APIError("Invalid refresh Token");
   }
+
+  const user = await User.findById(storedToken.user);
+
+  if (!user) {
+    logger.warn("User not found", storedToken.user);
+    throw new APIError("User not found", 404);
+  }
+
+  const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+    await generateToken(user);
+
+  // delete the old refresh token
+  await RefreshToken.deleteOne({ _id: storedToken._id });
+
+  res.status(201).json({
+    success: true,
+    accessToken: newAccessToken,
+    refreshToken: newRefreshToken,
+  });
 });
+
 // logout
+// POST /auth/logout
+const logoutUser = asyncHandler(async (req, res) => {
+  logger.info("logoutUser endpoint hit");
+
+  const { refreshToken } = req.body;
+
+  // If token exists, delete it — no errors if it doesn't
+  if (refreshToken) {
+    await RefreshToken.deleteOne({ token: refreshToken });
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "User logged out successfully",
+  });
+});
 
 module.exports = {
   registerUser,
   loginUser,
+  refreshToken,
+  logoutUser,
 };
