@@ -1168,3 +1168,20 @@
 {"level":"info","message":"Received POST /api/auth/logout","service":"identity-service","timestamp":"2026-02-15T10:18:13.333Z"}
 {"level":"info","message":"Request body {\"refreshToken\":\"6b9e63111537fa10d253453454927d8d518433623025cb980b030c4a1d7173b33afdf10744346bbe9f4fd18\"}","service":"identity-service","timestamp":"2026-02-15T10:18:13.335Z"}
 {"level":"info","message":"logoutUser endpoint hit","service":"identity-service","timestamp":"2026-02-15T10:18:13.338Z"}
+{"level":"info","message":"Identity service running on port 3001","service":"identity-service","timestamp":"2026-02-17T16:49:18.400Z"}
+{"level":"info","message":"MongoDB connected","service":"identity-service","timestamp":"2026-02-17T16:49:19.176Z"}
+{"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-17T18:50:19.542Z"}
+{"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-17T18:50:19.546Z"}
+{"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-17T18:50:19.590Z"}
+{"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-17T18:52:53.123Z"}
+{"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-17T18:52:53.124Z"}
+{"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-17T18:52:53.128Z"}
+{"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-17T18:53:16.635Z"}
+{"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-17T18:53:16.653Z"}
+{"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-17T18:53:16.674Z"}
+{"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-17T18:56:03.295Z"}
+{"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-17T18:56:03.296Z"}
+{"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-17T18:56:03.297Z"}
+{"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-17T19:02:59.788Z"}
+{"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-17T19:02:59.789Z"}
+{"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-17T19:02:59.790Z"}

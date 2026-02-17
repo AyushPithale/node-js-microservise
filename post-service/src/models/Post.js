@@ -8,12 +8,12 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
     content: {
-      type: string,
+      type: String,
       required: true,
     },
     mediaIds: [
       {
-        type: string,
+        type: String,
       },
     ],
     createdAt: {
