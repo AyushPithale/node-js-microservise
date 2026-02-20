@@ -27,8 +27,58 @@ const CreatePost = asyncHandler(async (req, res) => {
   });
 });
 
+const getAllPost = asyncHandler(async (req, res, next) => {
+  logger.info("Get all post request received");
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const startIndex = (page - 1) * limit;
+
+  // creating cache key
+
+  const cacheKey = `posts:${page}:${limit}`;
+
+  const cachedPost = await req.redisClient.get(cacheKey);
+
+  if (cachedPost) {
+    return res.status(200).json({
+      success: true,
+      message: "Posts fetch succesfully",
+      posts: JSON.parse(cachedPost),
+    });
+  }
+
+  const posts = await Post.find()
+    .sort({ createdAt: -1 })
+    .skip(startIndex)
+    .limit(limit);
+
+  if (!posts) {
+    logger.warn("Failed to fetch posts");
+    throw new APIError("Failed to fetch posts", 404);
+  }
+
+  const totalNoPost = await Post.countDocuments();
+
+  const result = {
+    posts,
+    currentPage: page,
+    totalPages: Math.ceil(totalNoPost / limit),
+    totalPosts: totalNoPost,
+  };
+
+  // save it in redis cache
+
+  await req.redisClient.setex(cacheKey, 300, JSON.stringify(result));
+
+  res.status(200).json({
+    success: true,
+    ...result,
+  });
+});
+
 const deletePost = asyncHandler(async (req, res, next) => {
   logger.info("Delete post request received", req.params);
 });
 
-module.exports = { CreatePost, deletePost };
+module.exports = { CreatePost, getAllPost, deletePost };
