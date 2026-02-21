@@ -3,6 +3,14 @@ const Post = require("../models/Post");
 const { asyncHandler, APIError } = require("../middleware/error-handler");
 const { validatePost } = require("../utils/validation");
 
+async function invalidatePostCache(req, input) {
+  const keys = await req.redisClient.keys("posts:*");
+
+  if (keys.length > 0) {
+    await req.redisClient.del(keys);
+  }
+}
+
 const CreatePost = asyncHandler(async (req, res) => {
   const { content, mediaIds } = req.body;
 
@@ -20,6 +28,10 @@ const CreatePost = asyncHandler(async (req, res) => {
   if (!newPost) {
     throw new APIError("Post not created", 400);
   }
+
+  // invalidate or delete old cache of post after new post  creation
+  await invalidatePostCache(req, newPost._id.toString());
+
   logger.info("Post created successfully", newPost);
   res.status(201).json({
     success: true,

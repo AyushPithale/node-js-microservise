@@ -1185,3 +1185,11 @@
 {"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-17T19:02:59.788Z"}
 {"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-17T19:02:59.789Z"}
 {"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-17T19:02:59.790Z"}
+{"level":"info","message":"Identity service running on port 3001","service":"identity-service","timestamp":"2026-02-20T17:01:32.443Z"}
+{"level":"info","message":"MongoDB connected","service":"identity-service","timestamp":"2026-02-20T17:01:32.919Z"}
+{"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-20T18:36:17.228Z"}
+{"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-20T18:36:17.235Z"}
+{"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-20T18:36:17.299Z"}
+{"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-02-20T19:28:33.440Z"}
+{"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-02-20T19:28:33.455Z"}
+{"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-02-20T19:28:33.471Z"}
