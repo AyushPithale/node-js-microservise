@@ -6,11 +6,11 @@ const mediaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    originalName: {
+    originalname: {
       type: String,
       required: true,
     },
-    mineType: {
+    mimetype: {
       type: String,
       required: true,
     },

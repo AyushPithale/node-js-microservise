@@ -5,25 +5,26 @@ const Media = require("../models/media");
 
 const uploadMedia = asyncHandler(async (req, res) => {
   const file = req.file;
+  // logger.info("File details", file);
   if (!file)
     throw new APIError({ success: false, message: "No file uploaded" }, 400);
 
-  const { originalName, mineType, buffer } = req.file;
+  const { originalname, mimetype, buffer } = req.file;
   const userId = req.user.userId;
 
-  logger.info("File details", { originalName, mineType, buffer, userId });
+  logger.info("File details", { originalname, mimetype, userId });
 
   const uploadResult = await uploadMediaCloudinary(file);
 
   if (!uploadResult) throw new APIError("Failed to upload media", 500);
-
+  // console.log("uploadResult", uploadResult);
   logger.info("Media uploaded successfully", uploadResult.public_id);
 
   const newMedia = await Media.create({
-    public_id: uploadResult.public_id,
+    publicId: uploadResult.public_id,
     url: uploadResult.secure_url,
-    originalName,
-    mineType,
+    originalname,
+    mimetype,
     userId,
   });
 

@@ -18,7 +18,8 @@ router.post(
   authenticateMiddleware,
   (req, res, next) => {
     upload(req, res, function (err) {
-      if (err instanceof MulterError) {
+      // console.log("err", err);
+      if (err instanceof multer.MulterError) {
         logger.error("Multer error", err);
         return res.status(400).json({
           success: false,
