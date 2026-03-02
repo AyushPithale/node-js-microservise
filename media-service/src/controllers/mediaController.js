@@ -34,7 +34,8 @@ const uploadMedia = asyncHandler(async (req, res) => {
   res.status(201).json({
     success: true,
     message: "Media uploaded successfully",
-    newMedia,
+    mediaID: newMedia.public_id,
+    url: newMedia.url,
   });
 });
 
