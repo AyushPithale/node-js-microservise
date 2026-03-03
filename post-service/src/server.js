@@ -11,6 +11,7 @@ const helmet = require("helmet");
 const { RateLimiterRedis } = require("rate-limiter-flexible");
 const rateLimit = require("express-rate-limit");
 const { RedisStore } = require("rate-limit-redis");
+const { connectRabbitMQ } = require("./utils/rabbitmq");
 
 const connectDB = async () => {
   try {
@@ -83,9 +84,19 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 3002;
 
-app.listen(PORT, () => {
-  logger.info(`Post service running on port ${PORT}`);
-});
+async function startServer() {
+  try {
+    await connectRabbitMQ();
+    app.listen(PORT, () => {
+      logger.info(`Post service running on port ${PORT}`);
+    });
+  } catch (error) {
+    logger.error("Failed to start server", error);
+    process.exit(1);
+  }
+}
+
+startServer();
 
 //  unhandled rejection
 process.on("unhandledRejection", (reason, promise) => {
