@@ -28,14 +28,15 @@ const uploadMedia = asyncHandler(async (req, res) => {
     userId,
   });
 
+  console.log("newMedia", newMedia);
   if (!newMedia) throw new APIError("Failed to create media", 500);
 
-  logger.info("Media created successfully", newMedia.public_id);
+  logger.info("Media created successfully", newMedia.publicId);
 
   res.status(201).json({
     success: true,
     message: "Media uploaded successfully",
-    mediaID: newMedia.public_id,
+    mediaID: newMedia.publicId,
     url: newMedia.url,
   });
 });
