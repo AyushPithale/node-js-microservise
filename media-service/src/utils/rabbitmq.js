@@ -31,9 +31,29 @@ async function pulishEvent(routingKey, message) {
   logger.info(`Event pulished: ${routingKey}`);
 }
 
+async function consumeEvent(routingKey, callback) {
+  if (!channel) {
+    await connectRabbitMQ();
+  }
+
+  const q = await channel.assertQueue("", { exclusive: true });
+
+  await channel.bindQueue(q.queue, EXCHANGE_NAME, routingKey);
+  channel.consume(q.queue, (message) => {
+    if (message !== null) {
+      const content = JSON.parse(message.content.toString());
+      callback(content);
+      channel.ack(message);
+    }
+  });
+
+  logger.info(`Subscribed to event: ${routingKey}`);
+}
+
 module.exports = {
   connectRabbitMQ,
   getChannel: () => channel,
   getExchangeName: () => EXCHANGE_NAME,
   pulishEvent,
+  consumeEvent,
 };

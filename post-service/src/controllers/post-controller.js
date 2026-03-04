@@ -2,6 +2,7 @@ const logger = require("../utils/logger");
 const Post = require("../models/Post");
 const { asyncHandler, APIError } = require("../middleware/error-handler");
 const { validatePost } = require("../utils/validation");
+const { pulishEvent } = require("../utils/rabbitmq");
 
 async function invalidatePostCache(req, input) {
   const cachedkey = `post:${input}`;
@@ -136,6 +137,14 @@ const deletePost = asyncHandler(async (req, res, next) => {
     throw new APIError("Post not found", 404);
   }
 
+  // publish event to rabbitmq using mwthed to delete media files
+  await pulishEvent("post.deleted", {
+    post: post._id.toString(),
+    userID: req.user.userId,
+    mediaIds: post.mediaIds,
+  });
+
+  // invalidating   or deleting the redis cahce
   await invalidatePostCache(req, req.params.id);
 
   res.json({

@@ -41,4 +41,13 @@ const uploadMedia = asyncHandler(async (req, res) => {
   });
 });
 
-module.exports = { uploadMedia };
+const getAllMedias = asyncHandler(async (req, res) => {
+  const result = await Media.find({});
+  res.status(200).json({
+    success: true,
+    message: "Medias fetched successfully",
+    data: result,
+  });
+});
+
+module.exports = { uploadMedia, getAllMedias };
