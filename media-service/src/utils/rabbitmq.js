@@ -36,9 +36,13 @@ async function consumeEvent(routingKey, callback) {
     await connectRabbitMQ();
   }
 
+  // queue name is empty so it will create a random queue name
   const q = await channel.assertQueue("", { exclusive: true });
 
+  // bind the queue to the exchange
   await channel.bindQueue(q.queue, EXCHANGE_NAME, routingKey);
+
+  // consume the messages
   channel.consume(q.queue, (message) => {
     if (message !== null) {
       const content = JSON.parse(message.content.toString());
