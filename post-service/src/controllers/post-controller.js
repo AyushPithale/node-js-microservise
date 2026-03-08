@@ -128,7 +128,7 @@ const deletePost = asyncHandler(async (req, res, next) => {
   const id = req.params.id;
 
   const post = await Post.findOneAndDelete({
-    _id: id,
+    _id: id.toString(),
     user: req.user.userId,
   });
 
