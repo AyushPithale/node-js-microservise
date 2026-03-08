@@ -7,7 +7,7 @@ const handlePostDeleted = asyncHandler(async (event) => {
   logger.info("Post deleted event received", event);
 
   const { postId, mediaIds } = event;
-  const mediaToDelete = await Media.find({ _id: { $in: mediaIds } });
+  const mediaToDelete = await Media.find({ publicId: { $in: mediaIds } });
 
   if (!mediaToDelete) {
     logger.warn("No media found for deletion", mediaIds);
