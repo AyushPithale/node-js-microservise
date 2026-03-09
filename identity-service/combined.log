@@ -1216,3 +1216,5 @@
 {"level":"info","message":"Received POST /api/auth/login","service":"identity-service","timestamp":"2026-03-08T10:13:55.241Z"}
 {"level":"info","message":"Request body {\"password\":\"123123123\",\"email\":\"pandy@g.com\"}","service":"identity-service","timestamp":"2026-03-08T10:13:55.243Z"}
 {"level":"info","message":"Login endpoint hit","service":"identity-service","timestamp":"2026-03-08T10:13:55.255Z"}
+{"level":"info","message":"Identity service running on port 3001","service":"identity-service","timestamp":"2026-03-09T18:55:42.601Z"}
+{"level":"info","message":"MongoDB connected","service":"identity-service","timestamp":"2026-03-09T18:55:44.366Z"}
