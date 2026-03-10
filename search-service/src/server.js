@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const logger = require("./utils/logger");
-// const postRoutes = require("./routes/post-routes");
+const searchPosts = require("./routes/searchPostRoutes");
 const { errorHandler } = require("./middleware/error-handler");
 const mongoose = require("mongoose");
 const Redis = require("ioredis");
@@ -11,7 +11,7 @@ const helmet = require("helmet");
 const { RateLimiterRedis } = require("rate-limiter-flexible");
 const rateLimit = require("express-rate-limit");
 const { RedisStore } = require("rate-limit-redis");
-// const { connectRabbitMQ } = require("./utils/rabbitmq");
+const { connectRabbitMQ, consumeEvent } = require("./utils/rabbitMq");
 
 const connectDB = async () => {
   try {
@@ -69,16 +69,16 @@ const sensitiveRoutesRateLimiter = rateLimit({
 
 app.use(express.json());
 
-// app.use("/api/posts", sensitiveRoutesRateLimiter);
+app.use("/api/search", sensitiveRoutesRateLimiter);
 
-// app.use(
-//   "/api/posts",
-//   (req, res, next) => {
-//     req.redisClient = redisClient;
-//     next();
-//   },
-//   postRoutes,
-// );
+app.use(
+  "/api/search",
+  (req, res, next) => {
+    req.redisClient = redisClient;
+    next();
+  },
+  searchPosts,
+);
 
 app.use(errorHandler);
 
@@ -86,7 +86,7 @@ const PORT = process.env.PORT || 3004;
 
 async function startServer() {
   try {
-    // await connectRabbitMQ();
+    await connectRabbitMQ();
     app.listen(PORT, () => {
       logger.info(`Search service running on port ${PORT}`);
     });
