@@ -33,6 +33,14 @@ const CreatePost = asyncHandler(async (req, res) => {
     throw new APIError("Post not created", 400);
   }
 
+  // publish event for search service
+  await pulishEvent("post:created", {
+    postId: newPost._id.toString(),
+    userId: newPost.user.toString(),
+    content: newPost.content,
+    createdAt: newPost.createdAt,
+  });
+
   // invalidate or delete old cache of post after new post  creation
   await invalidatePostCache(req, newPost._id.toString());
 
