@@ -9,7 +9,7 @@ const searchPostSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      unique: true,
+      index: true,
       required: true,
     },
     content: {

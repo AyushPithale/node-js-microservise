@@ -91,7 +91,7 @@ async function startServer() {
   try {
     await connectRabbitMQ();
 
-    await consumeEvent("post.created", handlePostCreatedEvent);
+    await consumeEvent("post:created", handlePostCreatedEvent);
 
     app.listen(PORT, () => {
       logger.info(`Search service running on port ${PORT}`);
