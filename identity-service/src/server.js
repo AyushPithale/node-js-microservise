@@ -1,3 +1,4 @@
+require("dns").setServers(["8.8.8.8", "1.1.1.1"])
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
@@ -16,7 +17,9 @@ const PORT = process.env.PORT || 3001;
 // test commit
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI, {
+    family: 4,
+  })
   .then(() => {
     logger.info("MongoDB connected");
   })

@@ -1,3 +1,4 @@
+require("dns").setServers(["8.8.8.8", "1.1.1.1"])
 require("dotenv").config();
 const logger = require("./utils/logger");
 const express = require("express");
@@ -16,7 +17,9 @@ const { connectRabbitMQ, consumeEvent } = require("./utils/rabbitmq");
 const { handlePostDeleted } = require("./eventHandlers/media-event-handlers");
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_URI, {
+    family: 4,
+  })
   .then(() => {
     logger.info("MongoDB connected");
   })
