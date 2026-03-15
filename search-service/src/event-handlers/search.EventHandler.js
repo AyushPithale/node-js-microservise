@@ -23,4 +23,21 @@ async function handlePostCreatedEvent(event) {
   return newSearch;
 }
 
-module.exports = { handlePostCreatedEvent };
+
+async function handlePostDeleteEvent(event) {
+  logger.info("Post deleted event received:", event);
+
+  const { postId } = event;
+
+  const deletedSearch = await Search.findOneAndDelete({ postId: postId });
+
+  if (!deletedSearch) {
+    logger.warn("Search not deleted");
+    throw new APIError("Search not deleted", 400);
+  }
+
+  logger.info("Search deleted successfully", deletedSearch);
+
+  return deletedSearch;
+}
+module.exports = { handlePostCreatedEvent, handlePostDeleteEvent };

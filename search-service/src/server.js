@@ -14,6 +14,7 @@ const { RedisStore } = require("rate-limit-redis");
 const { connectRabbitMQ, consumeEvent } = require("./utils/rabbitMq");
 const {
   handlePostCreatedEvent,
+  handlePostDeleteEvent,
 } = require("./event-handlers/search.EventHandler");
 
 const connectDB = async () => {
@@ -94,6 +95,7 @@ async function startServer() {
     await connectRabbitMQ();
 
     await consumeEvent("post:created", handlePostCreatedEvent);
+    await consumeEvent("post.deleted", handlePostDeleteEvent);
 
     app.listen(PORT, () => {
       logger.info(`Search service running on port ${PORT}`);
