@@ -2,6 +2,9 @@ const logger = require("./../utils/logger");
 const { asyncHandler, APIError } = require("./../middleware/error-handler");
 const Search = require("../models/Search");
 
+
+/// todo ---> implement serach cashing using redis in the serach controller
+// --> for 2 to 3 min 
 const searchPostController = asyncHandler(async (req, res) => {
   const { query } = req.query;
   if (!query || query.trim() === "") {

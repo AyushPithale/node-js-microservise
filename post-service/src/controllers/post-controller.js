@@ -145,10 +145,10 @@ const deletePost = asyncHandler(async (req, res, next) => {
     throw new APIError("Post not found", 404);
   }
 
-  // publish event to rabbitmq using mwthed to delete media files
+  // publish event to rabbitmq using method to delete media files
   await pulishEvent("post.deleted", {
-    post: post._id.toString(),
-    userID: req.user.userId,
+    postId: post._id.toString(),
+    userId: req.user.userId,
     mediaIds: post.mediaIds,
   });
 
