@@ -1,0 +1,17 @@
+version: '3.8'
+
+# define the services
+services:
+  api-gateway:
+    # build the image from the Dockerfile in the api-gateway directory
+    build: ./api-gateway
+    # map port 3000 on the host to port 3000 in the container
+    ports:
+      - "3000:3000"
+    env_file: ./api-gateway/.env
+    depends_on:
+      - "redis"
+      - "rabbitmq"
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - RABBITMQ_URL=amqp:rabbitmq:5672
