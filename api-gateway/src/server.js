@@ -1,5 +1,5 @@
 require("dns").setServers(["8.8.8.8", "1.1.1.1"])
-require("dotenv").config();
+require("dotenv").config({ quiet: true });
 const express = require("express");
 const logger = require("./utils/logger");
 const { errorHandler } = require("./Middleware/errorHandler");
@@ -12,7 +12,6 @@ const proxy = require("express-http-proxy");
 const { validateToken } = require("./Middleware/authMiddleware");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const test = "test";
 const redisClient = new Redis(process.env.REDIS_URL);
 
 app.use(helmet());
